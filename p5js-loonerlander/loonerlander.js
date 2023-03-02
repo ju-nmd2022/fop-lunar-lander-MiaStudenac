@@ -4,7 +4,8 @@ let y = 60;
 let state = "start";
 
 function setup() {
-  createCanvas(1000, 2000);
+  createCanvas(800, 700);
+  frameRate(30);
 }
 
 // inspired by garrits video: https://youtu.be/3DcmPs4v2iA
@@ -16,8 +17,9 @@ function startScreen() {
 }
 
 function gameScreen() {
-  background(0, 0, 0);
+  bground();
   rocketship();
+  ground();
 }
 gameScreen();
 
@@ -31,6 +33,8 @@ function resultScreen() {
 
 function rocketship() {
   beginShape();
+  translate(x, y);
+
   vertex(257.040979090991, 328.921790616971);
   vertex(211, 96);
   vertex(209, 92.9999999999991);
@@ -48,8 +52,14 @@ function rocketship() {
   endShape();
 }
 
-function mousePressed() {
-  y = y - 15;
+function ground() {
+  noStroke();
+  fill(255, 0, 255);
+  rect(-200, 550, 800, 150);
+}
+
+function bground() {
+  background(0, 0, 78);
 }
 
 function draw() {
@@ -77,6 +87,4 @@ function rocket() {
   clear();
   fill(230, 46, 175);
   ellipse(x, y, 30);
-
-  y = y + 4;
 }
