@@ -2,6 +2,7 @@ let x = 150;
 let y = 150;
 
 function falcon() {
+  translate(200, 200);
   background(255, 135, 145);
   stroke(27, 27, 27);
   strokeWeight(3);

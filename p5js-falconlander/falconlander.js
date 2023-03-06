@@ -1,5 +1,5 @@
-let x = 200;
-let y = 200;
+let x = 150;
+let y = 150;
 
 let state = "start";
 let velocity = 1;
@@ -37,8 +37,8 @@ function gameScreen() {
     power = power - 10;
   }
 
-  if (y > 500) {
-    x = 300;
+  if (y > 400) {
+    x = 150;
     y = 500;
   }
 }
@@ -70,8 +70,9 @@ function lostScreen() {
 }
 
 function falcon() {
+  push();
   beginShape();
-
+  translate(200, 100);
   background(255, 135, 145);
   stroke(27, 27, 27);
   strokeWeight(3);
@@ -201,8 +202,8 @@ function falcon() {
   vertex();
   endShape();
 
-  pop();
   endShape();
+  pop();
 }
 
 function ground() {
@@ -229,17 +230,17 @@ function draw() {
   }
 
   if (y > 400 && power > 0 && velocity * 10 > 0 && velocity * 10 <= 20) {
-    y = 100;
+    y = 200;
     power = 400;
     velocity = 1;
     state = "win";
   } else if (y > 440 && (velocity * 10 > 20 || velocity * 10 < 0)) {
-    y = 100;
+    y = 200;
     power = 400;
     velocity = 1;
     state = "lost";
   } else if (power < 0) {
-    y = 100;
+    y = 200;
     power = 400;
     velocity = 1;
     state = "lost";
