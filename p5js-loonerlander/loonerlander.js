@@ -1,32 +1,72 @@
 let x = 200;
-let y = 60;
+let y = 200;
 
 let state = "start";
+let velocity = 1;
+let acceleration = 0.1;
+let power = 400;
 
 function setup() {
   createCanvas(800, 700);
-  frameRate(30);
 }
-
-// inspired by garrits video: https://youtu.be/3DcmPs4v2iA
 
 function startScreen() {
   background(0, 0, 0);
-  text("Start", 300, 300);
+
+  push();
+  translate(0, 0);
+  textAlign(CENTER);
+  textSize(50);
   fill(255, 255, 255);
+  text("Start", 350, 350);
+
+  pop();
 }
 
 function gameScreen() {
   bground();
-  rocketship();
   ground();
-}
-gameScreen();
+  rocketship();
 
-function resultScreen() {
+  y = y + velocity;
+  velocity = velocity + acceleration;
+
+  if (keyIsDown(40)) {
+    y = y - velocity * 1.5;
+    velocity = velocity - 0.4;
+    power = power - 10;
+  }
+
+  if (y > 500) {
+    x = 300;
+    y = 500;
+  }
+}
+
+function winScreen() {
   background(0, 0, 0);
-  text("You lost", 300, 300);
+
+  push();
+  translate(0, 0);
+  textAlign(CENTER);
+  textSize(50);
   fill(255, 255, 255);
+  text("You won", 350, 350);
+
+  pop();
+}
+
+function lostScreen() {
+  background(0, 0, 0);
+
+  push();
+  translate(0, 0);
+  textAlign(CENTER);
+  textSize(50);
+  fill(255, 255, 255);
+  text("You lost", 350, 350);
+
+  pop();
 }
 
 //drawing inspired by: https://jakesherwood.com/blog/icm/back-side-of-the-moon
@@ -34,6 +74,7 @@ function resultScreen() {
 function rocketship() {
   beginShape();
   translate(x, y);
+  scale(0.3);
 
   vertex(257.040979090991, 328.921790616971);
   vertex(211, 96);
@@ -53,9 +94,11 @@ function rocketship() {
 }
 
 function ground() {
+  push();
   noStroke();
-  fill(255, 0, 255);
-  rect(-200, 550, 800, 150);
+  fill(25, 0, 255);
+  rect(-670, 1300, 3000, 400);
+  pop();
 }
 
 function bground() {
@@ -67,24 +110,36 @@ function draw() {
     startScreen();
   } else if (state === "game") {
     gameScreen();
-  } else if (state === "result") {
-    resultScreen();
+  } else if (state === "lost") {
+    lostScreen();
+  } else if (state === "win") {
+    winScreen();
+  }
+
+  if (y > 400 && power > 0 && velocity * 10 > 0 && velocity * 10 <= 20) {
+    y = 100;
+    power = 400;
+    velocity = 1;
+    state = "win";
+  } else if (y > 440 && (velocity * 10 > 20, velocity * 10 < 0)) {
+    y = 100;
+    power = 400;
+    velocity = 1;
+    state = "lost";
+  } else if (power < 0) {
+    y = 100;
+    power = 400;
+    velocity = 1;
+    state = "lost";
   }
 }
 
-function mouseClicked() {
-  if (state === "start") {
+function keyPressed() {
+  if (keyCode === 32 && state === "start") {
     state = "game";
-  } else if (state === "game") {
-    state = "result";
-  } else if (state === "result") {
+  } else if (keyCode === 32 && state === "lost") {
     state = "game";
-    gameScreen();
+  } else if (keyCode === 32 && state === "win") {
+    state = "game";
   }
-}
-
-function rocket() {
-  clear();
-  fill(230, 46, 175);
-  ellipse(x, y, 30);
 }
