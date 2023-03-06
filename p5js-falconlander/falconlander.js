@@ -18,7 +18,16 @@ function startScreen() {
   textAlign(CENTER);
   textSize(50);
   fill(255, 255, 255);
-  text("Start", 350, 350);
+  text("Falcon Lander", 350, 350);
+
+  pop();
+
+  push();
+  translate(30, 30);
+  textAlign(CENTER);
+  textSize(10);
+  fill(255, 255, 255);
+  text("Click space bar to start <3", 350, 350);
 
   pop();
 }
@@ -54,6 +63,15 @@ function winScreen() {
   text("You won", 350, 350);
 
   pop();
+
+  push();
+  translate(30, 30);
+  textAlign(CENTER);
+  textSize(10);
+  fill(255, 255, 255);
+  text("Good job! Click space bar if you wish to play again", 350, 350);
+
+  pop();
 }
 
 function lostScreen() {
@@ -65,6 +83,15 @@ function lostScreen() {
   textSize(50);
   fill(255, 255, 255);
   text("You lost", 350, 350);
+
+  pop();
+
+  push();
+  translate(30, 30);
+  textAlign(CENTER);
+  textSize(10);
+  fill(255, 255, 255);
+  text("Click space bar to try again", 350, 350);
 
   pop();
 }

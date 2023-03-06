@@ -1,7 +1,13 @@
 let x = 150;
 let y = 150;
 
+function draw() {
+  falcon();
+  y = y + 2;
+}
+
 function falcon() {
+  push();
   translate(200, 200);
   background(255, 135, 145);
   stroke(27, 27, 27);
@@ -125,4 +131,3 @@ function falcon() {
 
   pop();
 }
-falcon();
