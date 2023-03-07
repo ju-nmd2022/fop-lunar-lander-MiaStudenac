@@ -6,24 +6,31 @@ let velocity = 1;
 let acceleration = 0.1;
 let power = 400;
 
+let starX = [];
+let starY = [];
+let starMain = [];
+
 function setup() {
-  createCanvas(800, 700);
+  createCanvas(700, 600);
 }
 
+//screens
+
 function startScreen() {
-  background(0, 0, 0);
+  bground();
 
   push();
   translate(0, 0);
   textAlign(CENTER);
   textSize(50);
   fill(255, 255, 255);
+  translate(0, 0);
   text("Falcon Lander", 350, 350);
 
   pop();
 
   push();
-  translate(30, 30);
+  translate(0, 30);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
@@ -33,8 +40,7 @@ function startScreen() {
 }
 
 function gameScreen() {
-  bground();
-  ground();
+  background(0, 0, 0);
   falcon();
 
   y = y + velocity;
@@ -53,8 +59,7 @@ function gameScreen() {
 }
 
 function winScreen() {
-  background(0, 0, 0);
-
+  bground();
   push();
   translate(0, 0);
   textAlign(CENTER);
@@ -65,7 +70,7 @@ function winScreen() {
   pop();
 
   push();
-  translate(30, 30);
+  translate(0, 30);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
@@ -75,8 +80,7 @@ function winScreen() {
 }
 
 function lostScreen() {
-  background(0, 0, 0);
-
+  bground();
   push();
   translate(0, 0);
   textAlign(CENTER);
@@ -87,7 +91,7 @@ function lostScreen() {
   pop();
 
   push();
-  translate(30, 30);
+  translate(0, 30);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
@@ -96,25 +100,92 @@ function lostScreen() {
   pop();
 }
 
+//stars
+// inspired by garrits video: https://youtu.be/kISBKRn-6_I
+
+for (let i = 0; i < 1000; i++) {
+  const x = Math.floor(Math.random() * 700);
+  const y = Math.floor(Math.random() * 600);
+  const main = Math.random();
+
+  starX.push(x);
+  starY.push(y);
+  starMain.push(main);
+}
+
+//background
+
+function bground() {
+  background(3, 7, 19);
+  push();
+  fill(170, 170, 170);
+  ellipse(x + 400, y + 60, 400, 400);
+
+  push();
+  fill(90, 90, 90);
+  ellipse(x + 290, y + 20, 120, 130);
+  pop();
+
+  push();
+  stroke(0, 0, 0);
+  strokeWeight(2);
+  noFill();
+  ellipse(x + 290, y + 20, 80, 90);
+  pop();
+
+  push();
+  fill(170, 170, 170);
+  ellipse(x + 290, y + 20, 30, 30);
+  pop();
+
+  push();
+  fill(0, 0, 0);
+  ellipse(x + 290, y + 20, 10, 10);
+  pop();
+
+  push();
+  fill(19, 130, 180);
+  ellipse(x - 20, y + 360, 50, 50);
+  pop();
+
+  push();
+  fill(19, 160, 120);
+  ellipse(x + 70, y + 380, 30, 30);
+  pop();
+
+  push();
+  fill(19, 160, 10);
+  ellipse(x + 190, y + 350, 20, 20);
+  pop();
+}
+
+function ground() {
+  push();
+  noStroke();
+  fill(25, 0, 255);
+  rect(x, y, x + 20, y + 20);
+  pop();
+}
+
+//falcon drawing
+
 function falcon() {
   push();
   beginShape();
-  translate(200, 100);
-  background(255, 135, 145);
   stroke(27, 27, 27);
   strokeWeight(3);
 
   //front thingies
   beginShape();
   fill(211, 211, 211);
-  vertex(110, 118);
-  vertex(133, 55);
-  vertex(142, 55);
-  vertex(140, 111);
-  vertex(158, 111);
-  vertex(157, 55);
-  vertex(166, 55);
-  vertex(190, 118);
+  vertex(110, y - 32);
+  vertex(133, y - 95);
+  vertex(142, y - 95);
+  vertex(140, y - 39);
+  vertex(158, y - 39);
+  vertex(157, y - 95);
+  vertex(166, y - 95);
+  vertex(190, y - 32);
   endShape();
 
   push();
@@ -129,12 +200,14 @@ function falcon() {
   ellipse(x + 23, y - 54, 3, 3);
   ellipse(x + 20, y - 32, 3, 3);
   rect(x - 30, y - 30, 7, 7);
-  line(120, 134, 127, 134);
+  line(x - 30, y - 16, x - 23, y - 16);
 
+  push();
   ellipse(x - 18, y + 30, 7, 7);
   ellipse(x, y + 34, 7, 7);
   ellipse(x + 18, y + 30, 7, 7);
 
+  push();
   ellipse(x - 10, y + 20, 4, 4);
   ellipse(x, y + 20, 4, 4);
   ellipse(x + 10, y + 20, 4, 4);
@@ -147,103 +220,81 @@ function falcon() {
   fill(0, 0, 0);
   ellipse(x, y - 4, 10, 10);
 
-  push();
   beginShape();
   fill(211, 211, 211);
-  vertex(138, 135);
-  vertex(162, 135);
-  vertex(138, 135);
-  vertex(143, 85);
-  vertex(156, 85);
-  vertex(162, 135);
+  vertex(138, y - 15);
+  vertex(162, y - 15);
+  vertex(138, y - 15);
+  vertex(143, y - 65);
+  vertex(156, y - 65);
+  vertex(162, y - 15);
   endShape();
 
   //left motor top
-  push();
   beginShape();
   fill(65, 65, 65);
-  vertex(102, 140);
-  vertex(94, 142);
-  vertex(94, 157);
-  vertex(102, 160);
+  vertex(102, y - 10);
+  vertex(94, y - 8);
+  vertex(94, y + 7);
+  vertex(102, y + 10);
   endShape();
 
   //left motor
-  push();
   beginShape();
   fill(211, 211, 211);
-  vertex(135, 144);
-  vertex(135, 156);
-  vertex(102, 160);
-  vertex(102, 140);
-  vertex(135, 144);
+  vertex(135, y - 6);
+  vertex(135, y + 6);
+  vertex(102, y + 10);
+  vertex(102, y - 10);
+  vertex(135, y - 6);
   endShape();
 
   //right motor top
-  push();
   beginShape();
   fill(65, 65, 65);
-  vertex(199, 140);
-  vertex(207, 142);
-  vertex(207, 157);
-  vertex(199, 160);
-  vertex();
+  vertex(199, y - 10);
+  vertex(207, y - 8);
+  vertex(207, y + 7);
+  vertex(199, y + 10);
   endShape();
 
   //right motor
-  push();
   beginShape();
   fill(211, 211, 211);
-  vertex(165, 145);
-  vertex(165, 156);
-  vertex(199, 160);
-  vertex(199, 140);
-  vertex(165, 145);
+  vertex(165, y - 5);
+  vertex(165, y + 6);
+  vertex(199, y + 10);
+  vertex(199, y - 10);
+  vertex(165, y - 5);
   endShape();
 
-  push();
   beginShape();
-  vertex(169, 127);
-  vertex(192, 116);
-  vertex(204, 133);
-  vertex(172, 136);
-  vertex(169, 127);
-  vertex();
+  vertex(169, y - 23);
+  vertex(192, y - 34);
+  vertex(204, y - 17);
+  vertex(172, y - 14);
+  vertex(169, y - 23);
   endShape();
 
-  push();
   beginShape();
-  vertex(192, 116);
-  vertex(192, 105);
-  vertex(205, 105);
-  vertex(205, 133);
+  vertex(192, y - 34);
+  vertex(192, y - 45);
+  vertex(205, y - 45);
+  vertex(205, y - 17);
   endShape();
 
-  push();
   beginShape();
   fill(65, 65, 65);
-  vertex(192, 105);
-  vertex(195, 93);
-  vertex(202, 93);
-  vertex(205, 105);
+  vertex(192, y - 45);
+  vertex(195, y - 57);
+  vertex(202, y - 57);
+  vertex(205, y - 45);
   vertex();
   endShape();
-
-  endShape();
   pop();
 }
 
-function ground() {
-  push();
-  noStroke();
-  fill(25, 0, 255);
-  rect(-670, 1300, 3000, 400);
-  pop();
-}
-
-function bground() {
-  background(0, 0, 78);
-}
+//function draw
 
 function draw() {
   if (state === "start") {
@@ -272,7 +323,15 @@ function draw() {
     velocity = 1;
     state = "lost";
   }
+
+  noStroke();
+  for (let index in starX) {
+    fill(255, 255, 255, starMain[index] * 255);
+    ellipse(starX[index], starY[index], 2);
+  }
 }
+
+//keycodes
 
 function keyPressed() {
   if (keyCode === 32 && state === "start") {
