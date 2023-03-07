@@ -11,16 +11,16 @@ let starY = [];
 let starMain = [];
 
 function setup() {
-  createCanvas(700, 600);
+  createCanvas(600, 450);
 }
 
 //screens
 
 function startScreen() {
-  bground();
+  scenery();
 
   push();
-  translate(0, 0);
+  translate(-100, -200);
   textAlign(CENTER);
   textSize(50);
   fill(255, 255, 255);
@@ -30,13 +30,17 @@ function startScreen() {
   pop();
 
   push();
-  translate(0, 30);
+  translate(-200, -170);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
   text("Click space bar to start <3", 350, 350);
 
   pop();
+}
+
+function planet() {
+  rect(x, y, 50, 50);
 }
 
 function gameScreen() {
@@ -52,16 +56,15 @@ function gameScreen() {
     power = power - 10;
   }
 
-  if (y > 400) {
-    x = 150;
-    y = 500;
+  if (y > 500) {
+    y = 300;
   }
 }
 
 function winScreen() {
-  bground();
+  scenery();
   push();
-  translate(0, 0);
+  translate(-200, -200);
   textAlign(CENTER);
   textSize(50);
   fill(255, 255, 255);
@@ -70,7 +73,7 @@ function winScreen() {
   pop();
 
   push();
-  translate(0, 30);
+  translate(-200, -170);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
@@ -80,18 +83,17 @@ function winScreen() {
 }
 
 function lostScreen() {
-  bground();
+  scenery();
   push();
-  translate(0, 0);
+  translate(-200, -200);
   textAlign(CENTER);
   textSize(50);
   fill(255, 255, 255);
   text("You lost", 350, 350);
-
   pop();
 
   push();
-  translate(0, 30);
+  translate(-200, -170);
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
@@ -104,8 +106,8 @@ function lostScreen() {
 // inspired by garrits video: https://youtu.be/kISBKRn-6_I
 
 for (let i = 0; i < 1000; i++) {
-  const x = Math.floor(Math.random() * 700);
-  const y = Math.floor(Math.random() * 600);
+  const x = Math.floor(Math.random() * 600);
+  const y = Math.floor(Math.random() * 450);
   const main = Math.random();
 
   starX.push(x);
@@ -115,7 +117,7 @@ for (let i = 0; i < 1000; i++) {
 
 //background
 
-function bground() {
+function scenery() {
   background(3, 7, 19);
   push();
   fill(170, 170, 170);
@@ -124,13 +126,6 @@ function bground() {
   push();
   fill(90, 90, 90);
   ellipse(x + 290, y + 20, 120, 130);
-  pop();
-
-  push();
-  stroke(0, 0, 0);
-  strokeWeight(2);
-  noFill();
-  ellipse(x + 290, y + 20, 80, 90);
   pop();
 
   push();
@@ -145,25 +140,17 @@ function bground() {
 
   push();
   fill(19, 130, 180);
-  ellipse(x - 20, y + 360, 50, 50);
+  ellipse(x - 40, y + 200, 50, 50);
   pop();
 
   push();
   fill(19, 160, 120);
-  ellipse(x + 70, y + 380, 30, 30);
+  ellipse(x + 50, y + 230, 30, 30);
   pop();
 
   push();
   fill(19, 160, 10);
-  ellipse(x + 190, y + 350, 20, 20);
-  pop();
-}
-
-function ground() {
-  push();
-  noStroke();
-  fill(25, 0, 255);
-  rect(x, y, x + 20, y + 20);
+  ellipse(x + 120, y + 200, 20, 20);
   pop();
 }
 
@@ -312,7 +299,7 @@ function draw() {
     power = 400;
     velocity = 1;
     state = "win";
-  } else if (y > 440 && (velocity * 10 > 20 || velocity * 10 < 0)) {
+  } else if (y > 400 && (velocity * 10 > 20 || velocity * 10 < 0)) {
     y = 200;
     power = 400;
     velocity = 1;
@@ -328,6 +315,7 @@ function draw() {
   for (let index in starX) {
     fill(255, 255, 255, starMain[index] * 255);
     ellipse(starX[index], starY[index], 2);
+    fill(255, 255, 255);
   }
 }
 
