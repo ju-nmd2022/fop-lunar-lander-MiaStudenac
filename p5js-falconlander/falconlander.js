@@ -37,6 +37,17 @@ function startScreen() {
   text("Click space bar to start <3", 350, 350);
 
   pop();
+
+  push();
+  translate(-280, -100);
+  textAlign(CENTER);
+  textSize(10);
+  fill(255, 255, 255);
+  translate(0, 0);
+  text("Try landing on the cover page but just a", 460, 350);
+  text("quick tip, don't use the power right", 450, 365);
+  text(" in the starting point :)  ", 422, 380);
+  pop();
 }
 
 function planet() {
@@ -77,7 +88,7 @@ function winScreen() {
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
-  text("Good job! Click space bar if you wish to play again", 350, 350);
+  text("Good job! Click space bar if you wish to play again", 375, 350);
 
   pop();
 }
@@ -97,7 +108,7 @@ function lostScreen() {
   textAlign(CENTER);
   textSize(10);
   fill(255, 255, 255);
-  text("Click space bar to try again", 350, 350);
+  text("Click space bar to try again", 330, 350);
 
   pop();
 }
@@ -118,7 +129,7 @@ for (let i = 0; i < 1000; i++) {
 //background
 
 function scenery() {
-  background(3, 7, 19);
+  background(0, 0, 0);
   push();
   fill(170, 170, 170);
   ellipse(x + 400, y + 60, 400, 400);
