@@ -58,6 +58,10 @@ function gameScreen() {
   background(0, 0, 0);
   falcon();
 
+  if (y > 500) {
+    y = 300;
+  }
+
   y = y + velocity;
   velocity = velocity + acceleration;
 
@@ -65,10 +69,6 @@ function gameScreen() {
     y = y - velocity * 1.5;
     velocity = velocity - 0.4;
     power = power - 10;
-  }
-
-  if (y > 500) {
-    y = 300;
   }
 }
 
