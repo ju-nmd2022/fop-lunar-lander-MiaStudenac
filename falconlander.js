@@ -50,17 +50,9 @@ function startScreen() {
   pop();
 }
 
-function planet() {
-  rect(x, y, 50, 50);
-}
-
 function gameScreen() {
   background(0, 0, 0);
   falcon();
-
-  if (y > 500) {
-    y = 300;
-  }
 
   y = y + velocity;
   velocity = velocity + acceleration;
